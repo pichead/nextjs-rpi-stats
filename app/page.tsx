@@ -7,9 +7,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-6 text-foreground">Raspberry Pi</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground text-red-500">Raspberry Pi</h1>
 
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md bg-slate-400">
         <CardHeader>
           <CardTitle>System Information</CardTitle>
         </CardHeader>
@@ -33,7 +33,7 @@ export default async function Home() {
             {systemInfo.cpuUsage.map((usage, index) => (
               <div key={index} className="space-y-1">
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>Core {index}</span>
+                  <span>Core {index + 1}</span>
                   <span>{usage}%</span>
                 </div>
                 <Progress value={parseFloat(usage)} className="h-2" />
@@ -47,9 +47,9 @@ export default async function Home() {
               <span>Used</span>
               <span>{systemInfo.memoryUsage.used.toFixed(2)} / {systemInfo.memoryUsage.total.toFixed(2)} GB</span>
             </div>
-            <Progress 
-              value={(systemInfo.memoryUsage.used / systemInfo.memoryUsage.total) * 100} 
-              className="h-2" 
+            <Progress
+              value={(systemInfo.memoryUsage.used / systemInfo.memoryUsage.total) * 100}
+              className="h-2"
             />
           </div>
         </CardContent>

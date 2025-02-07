@@ -14,7 +14,7 @@ function getCpuUsage() {
 }
 
 async function getCpuTemp() {
-    if (process.platform !== "linux") {
+    if (os.platform() !== "linux") {
         return 0; // หรือค่า default อะไรก็ได้ เช่น 0
     }
 
