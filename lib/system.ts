@@ -21,9 +21,9 @@ async function getCpuTemp() {
 
     try {
         console.log('try')
-        return await execAsync("vcgencmd measure_temp")
-        // const { stdout } = await execAsync("vcgencmd measure_temp");
-        // return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
+
+        const { stdout } = await execAsync("vcgencmd measure_temp");
+        return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
     } catch (error) {
         console.log('catch')
         console.error("Failed to get CPU temperature:", error);
@@ -35,15 +35,15 @@ async function getCpuData() {
     console.log("os.platform() : ", os.platform())
     if (os.platform() == "linux") {
         try {
-            const { stdout } = await execAsync("vcgencmd measure_temp");
-            return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
+            const tdata = await execAsync("vcgencmd measure_temp")
+            return JSON.stringify(tdata)
         } catch (error) {
             console.error("Failed to get CPU temperature:", error);
             return "catch"
         }
 
     }
-    else{
+    else {
         return "else"
     }
 }
