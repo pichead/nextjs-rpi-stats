@@ -14,14 +14,17 @@ function getCpuUsage() {
 }
 
 async function getCpuTemp() {
+    console.log("os.platform() : ", os.platform())
     if (os.platform() !== "linux") {
         return 0; // หรือค่า default อะไรก็ได้ เช่น 0
     }
 
     try {
+        console.log('try')
         const { stdout } = await execAsync("vcgencmd measure_temp");
         return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
     } catch (error) {
+        console.log('catch')
         console.error("Failed to get CPU temperature:", error);
         return 0;
     }
