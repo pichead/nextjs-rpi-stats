@@ -1,4 +1,4 @@
-import { getSystemDetails } from "@/lib/system";
+import { getSystemDetails,getCpuData } from "@/lib/system";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
@@ -11,7 +11,7 @@ export default async function Home() {
 
       <Card className="w-full max-w-md bg-slate-400">
         <CardHeader>
-          <CardTitle>System Information</CardTitle>
+          <CardTitle>System Information {systemInfo.getCpuData()}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">

@@ -30,6 +30,11 @@ async function getCpuTemp() {
     }
 }
 
+async function getCpuData() {
+    console.log("os.platform() : ", os.platform())
+    return os.platform()
+}
+
 function bytesToGB(bytes: number) {
     return (bytes / (1024 * 1024 * 1024)).toFixed(2);
 }
@@ -54,5 +59,6 @@ export async function getSystemDetails() {
             used: parseFloat(bytesToGB(usedMem)),
             free: parseFloat(bytesToGB(freeMem)),
         },
+        getCpuData
     };
 }
