@@ -35,8 +35,9 @@ async function getCpuData() {
     console.log("os.platform() : ", os.platform())
     if (os.platform() == "linux") {
         try {
-            const tdata = await execAsync("cat /sys/class/thermal/thermal_zone0/temp")
-            return JSON.stringify(tdata)
+            const { stdout } = await execAsync("cat /sys/class/thermal/thermal_zone0/temp")
+            return parseFloat(stdout) / 1000
+
         } catch (error) {
             console.error("Failed to get CPU temperature:", error);
             return JSON.stringify(error)
