@@ -9,9 +9,9 @@ services:
       - '3000:3000'
     restart: always
     networks:
-      - web
+      - nginx-net
 
 networks:
-  web:
+  nginx-net:
     driver: bridge
 
