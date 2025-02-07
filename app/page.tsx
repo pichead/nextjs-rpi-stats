@@ -11,7 +11,7 @@ export default async function Home() {
 
       <Card className="w-full max-w-md bg-slate-400">
         <CardHeader>
-          <CardTitle>System Information {systemInfo.getCpuData()}</CardTitle>
+          <CardTitle>System Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
