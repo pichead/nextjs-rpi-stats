@@ -21,8 +21,9 @@ async function getCpuTemp() {
 
     try {
         console.log('try')
-        const { stdout } = await execAsync("vcgencmd measure_temp");
-        return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
+        return await execAsync("vcgencmd measure_temp")
+        // const { stdout } = await execAsync("vcgencmd measure_temp");
+        // return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
     } catch (error) {
         console.log('catch')
         console.error("Failed to get CPU temperature:", error);
