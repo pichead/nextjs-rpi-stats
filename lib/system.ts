@@ -32,7 +32,18 @@ async function getCpuTemp() {
 
 async function getCpuData() {
     console.log("os.platform() : ", os.platform())
-    return os.platform()
+    if (os.platform() == "linux") {
+        try {
+            const { stdout } = await execAsync("vcgencmd measure_temp");
+            return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
+        } catch (error) {
+            return "catch"
+        }
+
+    }
+    else{
+        return "else"
+    }
 }
 
 function bytesToGB(bytes: number) {
