@@ -36,7 +36,7 @@ async function getCpuData() {
         try {
             const { stdout } = await execAsync("vcgencmd measure_temp");
             return parseFloat(stdout.replace("temp=", "").replace("'C", ""));
-        } catch (error) {
+        } catch (_) {
             return "catch"
         }
 
