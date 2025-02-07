@@ -39,7 +39,7 @@ async function getCpuData() {
             return JSON.stringify(tdata)
         } catch (error) {
             console.error("Failed to get CPU temperature:", error);
-            return "catch"
+            return JSON.stringify(error)
         }
 
     }
