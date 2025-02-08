@@ -9,9 +9,10 @@ services:
       - '3000:3000'
     restart: always
     networks:
-      - nginx-net
+      - app-net
 
 networks:
-  nginx-net:
+  app-net:
+    name: ${CONTAINER_NETWORK:-app-net}
     external: true
 
