@@ -40,7 +40,7 @@ export default function Home() {
   const setup = async () => {
     const data = await fetch('/api/system', { method: "GET" }).then((res) => res.json());
     console.log(data)
-    setSystemInfo({ ...data.data })
+    setSystemInfo({ ...data.data, storage: "" })
   }
 
   useEffect(() => {

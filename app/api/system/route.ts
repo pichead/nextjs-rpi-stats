@@ -60,7 +60,7 @@ const getSystemDetail = async () => {
 
     const cpuTemp = await getCpuTemp();
     const storageData = await getStorageData()
-
+    
     return {
         hostname: os.hostname(),
         platform: os.platform(),
