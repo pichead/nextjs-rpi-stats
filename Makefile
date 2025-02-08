@@ -27,5 +27,5 @@ update:
 # deploy app
 deploy:
 	docker network create $(NETWORK_NAME)
-	docker compose up -d --build
+	docker compose up -d --build --force-recreate
 
