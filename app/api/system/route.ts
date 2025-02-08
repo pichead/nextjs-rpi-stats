@@ -40,6 +40,15 @@ function bytesToGB(bytes: number) {
     return (bytes / (1024 * 1024 * 1024)).toFixed(2);
 }
 
+const getStorageData = async () => {
+    if (os.platform() !== "linux") {
+        return 0; 
+    }
+
+    const { stdout } = await execAsync("df -h")
+    return stdout
+}
+
 const getSystemDetail = async () => {
     // Get CPU usage
     const cpuUsage = getCpuUsage();
@@ -50,11 +59,13 @@ const getSystemDetail = async () => {
     const usedMem = totalMem - freeMem;
 
     const cpuTemp = await getCpuTemp();
+    const storageData = await getStorageData()
 
     return {
         hostname: os.hostname(),
         platform: os.platform(),
         arch: os.arch(),
+        storage: storageData,
         cpuTemp,
         cpuUsage,
         memoryUsage: {

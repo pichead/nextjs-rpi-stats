@@ -10,6 +10,7 @@ interface ISystemInfo {
   arch: string,
   cpuTemp: number;
   cpuUsage: string[];
+  storage: string,
   memoryUsage: {
     total: number;
     used: number;
@@ -27,6 +28,7 @@ export default function Home() {
     platform: "",
     arch: "",
     cpuTemp: 0,
+    storage: "",
     cpuUsage: [],
     memoryUsage: {
       total: 0,
