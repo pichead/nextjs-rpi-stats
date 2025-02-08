@@ -58,7 +58,7 @@ const getStorageData = async () => {
         };
     });
 
-    return data;
+    return data.find((f) => f.filesystem === "/dev/sda2")
 }
 
 const getSystemDetail = async () => {
