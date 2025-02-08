@@ -35,23 +35,6 @@ async function getCpuTemp() {
     }
 }
 
-async function getCpuData() {
-    console.log("os.platform() : ", os.platform())
-    if (os.platform() == "linux") {
-        try {
-            const { stdout } = await execAsync("cat /sys/class/thermal/thermal_zone0/temp")
-            return parseFloat(stdout) / 1000
-
-        } catch (error) {
-            console.error("Failed to get CPU temperature:", error);
-            return JSON.stringify(error)
-        }
-
-    }
-    else {
-        return "else"
-    }
-}
 
 function bytesToGB(bytes: number) {
     return (bytes / (1024 * 1024 * 1024)).toFixed(2);
