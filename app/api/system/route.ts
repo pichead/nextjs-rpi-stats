@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-
 import os from "os";
 import { exec } from "child_process";
 import { promisify } from "util";
@@ -42,11 +41,24 @@ function bytesToGB(bytes: number) {
 
 const getStorageData = async () => {
     if (os.platform() !== "linux") {
-        return 0; 
+        return 0;
     }
 
     const { stdout } = await execAsync("df -h")
-    return stdout
+    const lines = stdout.trim().split("\n"); // แยกบรรทัด
+    const data = lines.slice(1).map(line => {
+        const values = line.split(/\s+/); // แยกค่าตามช่องว่าง
+        return {
+            filesystem: values[0],
+            size: values[1],
+            used: values[2],
+            available: values[3],
+            usePercent: values[4],
+            mountedOn: values[5]
+        };
+    });
+
+    return data;
 }
 
 const getSystemDetail = async () => {
@@ -60,7 +72,7 @@ const getSystemDetail = async () => {
 
     const cpuTemp = await getCpuTemp();
     const storageData = await getStorageData()
-    
+
     return {
         hostname: os.hostname(),
         platform: os.platform(),
