@@ -1,5 +1,6 @@
 
 services:
+
   pi-stats:
     build:
       context: ./
@@ -8,11 +9,9 @@ services:
       - '3000:3000'
     restart: always
     networks:
-      - bridge
+      - nginx-net
 
 networks:
-  bridge:
-    name: "bridge"
-    driver: bridge
+  nginx-net:
     external: true
 
