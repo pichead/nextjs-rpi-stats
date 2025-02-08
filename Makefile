@@ -4,7 +4,7 @@ include .env
 .IGNORE: deploy
 
 NETWORK_NAME = $(CONTAINER_NETWORK)
-GIT_COMMENT = $(git_-m)
+GIT_COMMENT = $(comment) || "update"
 
 push-code:
 	git add .
