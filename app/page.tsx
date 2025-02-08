@@ -1,9 +1,52 @@
-import { getSystemDetails } from "@/lib/system";
+// import { getSystemDetails } from "@/lib/system";
+"use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  const systemInfo = await getSystemDetails();
+interface ISystemInfo {
+  hostname: string,
+  platform: string,
+  arch: string,
+  cpuTemp: number;
+  cpuUsage: string[];
+  memoryUsage: {
+    total: number;
+    used: number;
+    free: number;
+  };
+}
+
+
+
+export default function Home() {
+
+
+  const [systemInfo, setSystemInfo] = useState<ISystemInfo>({
+    hostname: "",
+    platform: "",
+    arch: "",
+    cpuTemp: 0,
+    cpuUsage: [],
+    memoryUsage: {
+      total: 0,
+      used: 0,
+      free: 0,
+    }
+  })
+
+  const setup = async () => {
+    const data = await fetch('/api/system', { method: "GET" }).then((res) => res.json());
+    console.log(data)
+    setSystemInfo({ ...data.data })
+  }
+
+  useEffect(() => {
+    setup()
+  }, [])
+
+  // const systemInfo = await getSystemDetails()
+
 
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
@@ -16,9 +59,9 @@ export default async function Home() {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             {[
-              ["Hostname", systemInfo.os.hostname()],
-              ["Platform", systemInfo.os.platform()],
-              ["Architecture", systemInfo.os.arch()],
+              ["Hostname", systemInfo.hostname],
+              ["Platform", systemInfo.platform],
+              ["Architecture", systemInfo.arch],
               ["CPU Temperature", `${systemInfo.cpuTemp}°C`],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between text-sm">
