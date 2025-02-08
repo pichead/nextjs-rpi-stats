@@ -57,8 +57,9 @@ const getStorageData = async () => {
             mountedOn: values[5]
         };
     });
-
-    return data.find((f) => f.filesystem === "/dev/sda2")
+    const arrData = []
+    arrData.push(data.find((f) => f.filesystem === "/dev/sda2"))
+    return arrData
 }
 
 const getSystemDetail = async () => {

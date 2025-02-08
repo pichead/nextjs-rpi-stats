@@ -10,7 +10,14 @@ interface ISystemInfo {
   arch: string,
   cpuTemp: number;
   cpuUsage: string[];
-  storage: string,
+  storage: {
+    filesystem: string,
+    size: string,
+    used: string,
+    available: string,
+    usePercent: string,
+    mountedOn: string
+  }[],
   memoryUsage: {
     total: number;
     used: number;
@@ -28,7 +35,7 @@ export default function Home() {
     platform: "",
     arch: "",
     cpuTemp: 0,
-    storage: "",
+    storage: [],
     cpuUsage: [],
     memoryUsage: {
       total: 0,
@@ -40,7 +47,7 @@ export default function Home() {
   const setup = async () => {
     const data = await fetch('/api/system', { method: "GET" }).then((res) => res.json());
     console.log(data)
-    setSystemInfo({ ...data.data, storage: "" })
+    setSystemInfo({ ...data.data })
   }
 
   useEffect(() => {
