@@ -81,6 +81,18 @@ export default function Home() {
           </div>
 
           <div className="space-y-2">
+            <h3 className="text-lg font-semibold text-foreground">Memory Usage</h3>
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>Used</span>
+              <span>{systemInfo.memoryUsage.used.toFixed(2)} / {systemInfo.memoryUsage.total.toFixed(2)} GB</span>
+            </div>
+            <Progress
+              value={(systemInfo.memoryUsage.used / systemInfo.memoryUsage.total) * 100}
+              className="h-2"
+            />
+          </div>
+
+          <div className="space-y-2">
             <h3 className="text-lg font-semibold text-foreground">CPU Usage</h3>
             {systemInfo.cpuUsage.map((usage, index) => (
               <div key={index} className="space-y-1">
@@ -94,16 +106,19 @@ export default function Home() {
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Memory Usage</h3>
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>Used</span>
-              <span>{systemInfo.memoryUsage.used.toFixed(2)} / {systemInfo.memoryUsage.total.toFixed(2)} GB</span>
-            </div>
-            <Progress
-              value={(systemInfo.memoryUsage.used / systemInfo.memoryUsage.total) * 100}
-              className="h-2"
-            />
+            <h3 className="text-lg font-semibold text-foreground">Storage Usage</h3>
+            {systemInfo.storage.map((usage, index) => (
+              <div key={index} className="space-y-1">
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>Storage {index + 1} Free {usage.available.replace("G","")} GB</span>
+                  <span>{usage.used.replace("G","")} / {usage.size.replace("G","")} GB  {usage.usePercent}%</span>
+                </div>
+                <Progress value={parseFloat(usage.usePercent.replace("%",""))} className="h-2" />
+              </div>
+            ))}
           </div>
+
+
         </CardContent>
       </Card>
     </main>
