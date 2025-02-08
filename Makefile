@@ -4,7 +4,7 @@ include .env
 .IGNORE: deploy
 
 NETWORK_NAME = $(CONTAINER_NETWORK)
-GIT_COMMENT = $(comment) || "update"
+GIT_COMMENT ?= "update"
 
 push-code:
 	git add .
@@ -15,10 +15,11 @@ pre-commit:
 	npm run build
 	npm lint
 
-pull:
+update:
 	git fetch
 	git pull
 
 deploy:
 	docker network create $(NETWORK_NAME)
 	docker compose up -d --build
+
